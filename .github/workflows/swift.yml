@@ -78,10 +78,10 @@ jobs:
             openedcore-spm-${{ runner.os }}-
 
       - name: Build
-        run: swift build -v
+        run: swift build -Xlinker -fuse-ld=lld
 
       - name: Run tests
-        run: swift test -v
+        run: swift test --parallel --num-workers 1 -Xlinker -fuse-ld=lld
 
   docker-build:
     name: Build Docker Image

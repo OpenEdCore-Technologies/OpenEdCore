@@ -289,8 +289,24 @@ final class StudentGraphQLAPI: API, @unchecked Sendable {
 
 // MARK: - Schema Builder
 
+private let _graphqlSchemaLock = NSLock()
+private nonisolated(unsafe) var _cachedGraphQLSchema: Graphiti.Schema<GraphQLResolver, Request>? = nil
+
 enum StudentGraphQLSchema {
     static func build() throws -> Graphiti.Schema<GraphQLResolver, Request> {
+        _graphqlSchemaLock.lock()
+        defer { _graphqlSchemaLock.unlock() }
+
+        if let cached = _cachedGraphQLSchema {
+            return cached
+        }
+
+        let newSchema = try internalBuild()
+        _cachedGraphQLSchema = newSchema
+        return newSchema
+    }
+
+    private static func internalBuild() throws -> Graphiti.Schema<GraphQLResolver, Request> {
         let coders = Coders()
         coders.decoder.dateDecodingStrategy = .custom { decoder in
             let container = try decoder.singleValueContainer()
