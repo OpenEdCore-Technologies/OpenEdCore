@@ -126,8 +126,7 @@ struct AccessGateController: RouteCollection {
                     • Source: \(reqSource)
                     • Date & Time: \(Date().description)
 
-                    Review all registrations in your admin dashboard:
-                    https://staging.openedschool.com/admin/access-requests
+                    Review all registrations in your secure OpenEd Admin Portal.
                     """
 
                     let htmlBody = """
@@ -166,7 +165,7 @@ struct AccessGateController: RouteCollection {
                             </tr>
                           </table>
                           <div style="margin-top: 28px; text-align: center;">
-                            <a href="https://staging.openedschool.com/admin/access-requests" style="display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 8px;">Review in Admin Dashboard</a>
+                            <span style="display: inline-block; background: #2563eb; color: #ffffff; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 8px;">OpenEd School Admin Portal</span>
                           </div>
                         </div>
                         <div style="background: #f1f5f9; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
