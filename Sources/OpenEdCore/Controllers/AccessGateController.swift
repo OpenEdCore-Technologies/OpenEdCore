@@ -179,8 +179,7 @@ struct AccessGateController: RouteCollection {
                     try await emailApp.emailService.send(
                         to: notificationRecipient,
                         subject: subject,
-                        textBody: textBody,
-                        htmlBody: htmlBody
+                        body: textBody
                     )
                     reqLogger.info("Sent waitlist notification email to \(notificationRecipient) for \(normalizedEmail)")
                 } catch {
