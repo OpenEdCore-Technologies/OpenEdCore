@@ -55,7 +55,6 @@
 
 OpenEdCore is an enterprise-grade backend service engineered in Swift 6 and Vapor 4 to power school and student identity applications across mobile (iOS) and web clients. It exposes unified REST and GraphQL APIs backed by PostgreSQL 16 via the Fluent ORM, providing identity registration, secure authentication, password recovery, and role-based access control (RBAC). Built with production resiliency in mind, the service enforces strict TLS 1.2+ security controls, fail-loudly environment validations, containerized CI/CD gating, and automated database migration pipelines.
 
-- **Production Portal**: [https://openedschool.com](https://openedschool.com)
 - **Staging Preview**: [https://staging.openedschool.com/coming-soon](https://staging.openedschool.com/coming-soon)
 
 ---
