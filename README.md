@@ -13,6 +13,7 @@
 
 <p align="center">
   <a href="https://openedschool.com"><img src="https://img.shields.io/badge/Web_Portal-openedschool.com-2563EB?logo=googlechrome&logoColor=white" alt="Web Portal" /></a>
+  <a href="https://staging.openedschool.com/coming-soon"><img src="https://img.shields.io/badge/Staging_Preview-staging.openedschool.com-10B981?logo=googlechrome&logoColor=white" alt="Staging Preview" /></a>
   <a href="https://github.com/rajeshm20/OpenEdCore/actions/workflows/swift.yml"><img src="https://github.com/rajeshm20/OpenEdCore/actions/workflows/swift.yml/badge.svg" alt="CI/CD" /></a>
   <a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-6.0-F05138.svg?logo=swift&logoColor=white" alt="Swift Version" /></a>
   <a href="https://vapor.codes"><img src="https://img.shields.io/badge/Vapor-4.115-blue.svg?logo=vapor&logoColor=white" alt="Vapor Framework" /></a>
@@ -53,6 +54,9 @@
 ## Overview
 
 OpenEdCore is an enterprise-grade backend service engineered in Swift 6 and Vapor 4 to power school and student identity applications across mobile (iOS) and web clients. It exposes unified REST and GraphQL APIs backed by PostgreSQL 16 via the Fluent ORM, providing identity registration, secure authentication, password recovery, and role-based access control (RBAC). Built with production resiliency in mind, the service enforces strict TLS 1.2+ security controls, fail-loudly environment validations, containerized CI/CD gating, and automated database migration pipelines.
+
+- **Production Portal**: [https://openedschool.com](https://openedschool.com)
+- **Staging Preview**: [https://staging.openedschool.com/coming-soon](https://staging.openedschool.com/coming-soon)
 
 ---
 
@@ -725,9 +729,11 @@ For detailed guidelines, please review [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 This project is licensed under the terms of the [MIT License](LICENSE).
 
-- **Ecosystem Platform**: [openedschool.com](https://openedschool.com)
+- **Production Platform**: [openedschool.com](https://openedschool.com)
+- **Staging Preview**: [staging.openedschool.com/coming-soon](https://staging.openedschool.com/coming-soon)
 - **Project Maintainer**: Rajesh Mani ([@rajeshm20](https://github.com/rajeshm20))
-- **Core Engine Repository**: [rajeshm20/OpenEdCore](https://github.com/rajeshm20/OpenEdCore)
+- **Core Engine Repository (Public)**: [rajeshm20/OpenEdCore](https://github.com/rajeshm20/OpenEdCore)
+- **Core Engine Repository (Enterprise)**: [rajeshm20/OpenEdCore-Enterprise](https://github.com/rajeshm20/OpenEdCore-Enterprise)
 - **Web Client Repository**: [opened-school-web](../opened-school-web)
 - **Mobile Client Repository**: [StudyApp](../StudyApp)
 
