@@ -29,6 +29,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Select Xcode 16 (Swift 6)
+        run: |
+          # Find and select Xcode 16 for Swift 6 toolchain
+          for xcode in /Applications/Xcode_16*.app; do
+            if [ -d "$xcode" ]; then
+              echo "Selecting $xcode..."
+              sudo xcode-select -s "$xcode/Contents/Developer"
+              break
+            fi
+          done
+          swift --version
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
