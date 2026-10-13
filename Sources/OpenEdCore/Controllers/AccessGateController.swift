@@ -106,6 +106,90 @@ struct AccessGateController: RouteCollection {
         try await newRequest.save(on: req.db)
         req.logger.info("New access request saved in PostgreSQL: \(normalizedEmail) (role: \(role))")
 
+        // Dispatch email notification to administrator (if configured via WAITLIST_NOTIFICATION_EMAIL)
+        if let notificationRecipient = Environment.get("WAITLIST_NOTIFICATION_EMAIL"), !notificationRecipient.isEmpty {
+            let emailApp = req.application
+            let reqLogger = req.logger
+            let reqInstitution = input.institution ?? "Not specified"
+            let reqSource = input.source ?? "waitlist_page"
+            let requestRole = role
+
+            Task {
+                do {
+                    let subject = "🎉 New OpenEd Waitlist Registration: \(normalizedEmail)"
+                    let textBody = """
+                    New Waitlist Registration on OpenEd School!
+
+                    • Registrant Email: \(normalizedEmail)
+                    • Selected Role: \(requestRole.capitalized)
+                    • Institution / School: \(reqInstitution)
+                    • Source: \(reqSource)
+                    • Date & Time: \(Date().description)
+
+                    Review all registrations in your admin dashboard:
+                    https://staging.openedschool.com/admin/access-requests
+                    """
+
+                    let htmlBody = """
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <meta charset="utf-8">
+                      <title>New Waitlist Registration</title>
+                    </head>
+                    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #1e293b;">
+                      <div style="max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+                        <div style="background: linear-gradient(135deg, #1e3a8a, #2563eb); padding: 24px; text-align: center;">
+                          <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">OpenEd School</h1>
+                          <p style="color: #93c5fd; margin: 6px 0 0 0; font-size: 14px;">Waitlist Notification Desk</p>
+                        </div>
+                        <div style="padding: 28px;">
+                          <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 12px 16px; border-radius: 6px; margin-bottom: 24px;">
+                            <span style="font-size: 14px; font-weight: 600; color: #1e40af;">🎉 A new user just joined the OpenEd waitlist!</span>
+                          </div>
+                          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                            <tr>
+                              <td style="padding: 10px 0; color: #64748b; font-weight: 600; width: 140px;">Registrant Email</td>
+                              <td style="padding: 10px 0; color: #0f172a; font-weight: 700;"><a href="mailto:\(normalizedEmail)" style="color: #2563eb; text-decoration: none;">\(normalizedEmail)</a></td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Selected Role</td>
+                              <td style="padding: 10px 0; color: #0f172a; font-weight: 600; text-transform: capitalize;">\(requestRole)</td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Institution / School</td>
+                              <td style="padding: 10px 0; color: #0f172a;">\(reqInstitution)</td>
+                            </tr>
+                            <tr>
+                              <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Source</td>
+                              <td style="padding: 10px 0; color: #0f172a;"><code>\(reqSource)</code></td>
+                            </tr>
+                          </table>
+                          <div style="margin-top: 28px; text-align: center;">
+                            <a href="https://staging.openedschool.com/admin/access-requests" style="display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 12px 24px; border-radius: 8px;">Review in Admin Dashboard</a>
+                          </div>
+                        </div>
+                        <div style="background: #f1f5f9; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0;">
+                          OpenEd School Platform Notification • Automated Alert
+                        </div>
+                      </div>
+                    </body>
+                    </html>
+                    """
+
+                    try await emailApp.emailService.send(
+                        to: notificationRecipient,
+                        subject: subject,
+                        textBody: textBody,
+                        htmlBody: htmlBody
+                    )
+                    reqLogger.info("Sent waitlist notification email to \(notificationRecipient) for \(normalizedEmail)")
+                } catch {
+                    reqLogger.error("Failed to send waitlist notification email to \(notificationRecipient): \(error)")
+                }
+            }
+        }
+
         return RequestAccessResponse(
             entry: newRequest.toPublic(),
             alreadyExisted: false
