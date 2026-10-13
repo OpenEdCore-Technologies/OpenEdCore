@@ -1,11 +1,11 @@
 <div align="center">
 
-<a href="https://openedschool.com">
+<a href="https://staging.openedschool.com/coming-soon">
   <img src="./docs/images/opened-school-banner.svg" alt="OpenEd School - OpenEdCore Banner" width="100%" />
 </a>
 
 # OpenEdCore
-### The Core Backend Engine for [OpenEd School](https://openedschool.com)
+### The Core Backend Engine for [OpenEd School](https://staging.openedschool.com/coming-soon)
 
 **High-performance, production-ready Vapor 4 / Swift 6 backend providing dual REST and GraphQL APIs for student identity and academic lifecycle management.**
 
@@ -62,11 +62,11 @@ OpenEdCore is an enterprise-grade backend service engineered in Swift 6 and Vapo
 
 ## Brand & Design Identity
 
-OpenEdCore serves as the server-side foundation for the **[OpenEd School](https://openedschool.com)** ecosystem. Its developer and user experience is coordinated with the web client ([`opened-school-web`](../opened-school-web)) and mobile clients ([`StudyApp`](../StudyApp)), adopting the visual identity of the **Study – E-Learning UI Kits** design system.
+OpenEdCore serves as the server-side foundation for the **[OpenEd School](https://staging.openedschool.com/coming-soon)** ecosystem. Its developer and user experience is coordinated with the web client ([`opened-school-web`](../opened-school-web)) and mobile clients ([`StudyApp`](../StudyApp)), adopting the visual identity of the **Study – E-Learning UI Kits** design system.
 
 <div align="center">
   <br/>
-  <a href="https://openedschool.com">
+  <a href="https://staging.openedschool.com/coming-soon">
     <img src="./docs/images/opened-school-logo.svg" alt="OpenEd School Logo" width="280" />
   </a>
   <p><em>Official brand mark: The OpenEd Hex-Book mark with radiant sky-blue pulse dot.</em></p>
